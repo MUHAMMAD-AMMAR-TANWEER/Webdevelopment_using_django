@@ -34,7 +34,7 @@ from . import views
 #     path('newlineremove', views.newlineremove, name='newlineremove'),
 #     path('spaceremove', views.spaceremove, name='spaceremove'),
 #     path('charcount', views.charcount, name='charcount'),
-# ]
+## ]
 #Above code is of video 7 and I also completed the challange now it's time to add templates in video 8
 #first go to settings.py and 'DIRS': ["templates"], do this ten we are able to addd templates
 urlpatterns = [
