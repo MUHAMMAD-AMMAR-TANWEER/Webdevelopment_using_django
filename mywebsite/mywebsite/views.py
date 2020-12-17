@@ -64,4 +64,18 @@ def analyze(request):
         return render(request, 'analyze.html', params)
     else:
         return HttpResponse("ERROR")
+def Calculator(request):
+    dj_number = request.GET.get('text','default')
+    addition = request.GET.get('addition','off')
+    if addition == 'on':
+        numbers=['0','1','2','3','4','5','6','7','8','9']
+        added = 0
+
+        for num in dj_number:
+            if num in numbers:
+                added += int(num)
+        params = {'purpose': 'Addition of numbers', 'addition':added}
+        return render(request, 'Calculator.html',params)
+    else:
+        return HttpResponse("ERROR")
 
