@@ -37,13 +37,20 @@ from . import views
 ## ]
 #Above code is of video 7 and I also completed the challange now it's time to add templates in video 8
 #first go to settings.py and 'DIRS': ["templates"], do this ten we are able to addd templates
+# urlpatterns = [
+#     path('admin/', admin.site.urls),
+#     path('', views.index, name='index'),
+#     path('removepunc', views.removepunc, name='rempun'),
+#     path('capitalizefirst', views.capfirst, name='capfirst'),
+#     path('newlineremove', views.newlineremove, name='newlineremove'),
+#     path('spaceremove', views.spaceremove, name='spaceremove'),
+#     path('charcount', views.charcount, name='charcount'),
+#
+# ]
+#Now the code is for video 10
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
-    path('removepunc', views.removepunc, name='rempun'),
-    path('capitalizefirst', views.capfirst, name='capfirst'),
-    path('newlineremove', views.newlineremove, name='newlineremove'),
-    path('spaceremove', views.spaceremove, name='spaceremove'),
-    path('charcount', views.charcount, name='charcount'),
-
+    path('analyze', views.analyze, name='analyze'),
 ]

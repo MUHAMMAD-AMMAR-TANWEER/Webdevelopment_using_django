@@ -47,24 +47,21 @@ from django.shortcuts import render
 # def charcount(request):
 #     return HttpResponse('''<h1>Character Count</h1><a href="http://127.0.0.1:8000/"><button>Return Home</button></a>''')
 #Above code is for video 7 now we are at video 8
+
 def index(request):
     return render(request, 'index.html')
-def removepunc(request):
 
-    #now we get the response which user submit in the form through below command
-    djreturns = request.GET.get('text','defaut')
-    print(djreturns)
-    return HttpResponse("remove punc")
+def analyze(request):
+    djtext = request.GET.get('text', 'default')#get the text in text box
+    removepucc = request.GET.get('removepunc','off')#get the tick if ticked then on else off
+    if removepucc == 'on':#if it is on then we perform backend
+        punctuations = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
+        analyzed = ""
+        for char in djtext:
+            if char not in punctuations:
+                analyzed = analyzed + char
+        params = {'purpose': 'Removed Punctuations', 'analyzed_text': analyzed}
+        return render(request, 'analyze.html', params)
+    else:
+        return HttpResponse("ERROR")
 
-def capfirst(request):
-    return HttpResponse("capitalize first")
-
-def newlineremove(request):
-    return HttpResponse("newline remove first")
-
-
-def spaceremove(request):
-    return HttpResponse("space remover back")
-
-def charcount(request):
-    return HttpResponse("charcount ")
