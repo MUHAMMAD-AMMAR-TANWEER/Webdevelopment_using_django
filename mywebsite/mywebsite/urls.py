@@ -49,9 +49,16 @@ from . import views
 # ]
 #Now the code is for video 10
 
-urlpatterns = [
-    path('admin/', admin.site.urls),
+# urlpatterns = [
+#     path('admin/', admin.site.urls),
+#     path('', views.index, name='index'),
+#     path('analyze', views.analyze, name='analyze'),
+#     path('Calculator', views.Calculator, name='Calculator'),
+# ]
+#Now adding and making a complete website for text parsing:
+urlpatterns=[
+    path('admin', admin.site.urls),
     path('', views.index, name='index'),
     path('analyze', views.analyze, name='analyze'),
-    path('Calculator', views.Calculator, name='Calculator'),
+    path('about', views.about, name='about/')
 ]

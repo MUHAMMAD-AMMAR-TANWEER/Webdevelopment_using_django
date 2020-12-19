@@ -47,35 +47,97 @@ from django.shortcuts import render
 # def charcount(request):
 #     return HttpResponse('''<h1>Character Count</h1><a href="http://127.0.0.1:8000/"><button>Return Home</button></a>''')
 #Above code is for video 7 now we are at video 8
-
+# def index(request):
+#     return render(request, 'index.html')
+# def removepunc(request):
+#
+#     #now we get the response which user submit in the form through below command
+#     djreturns = request.GET.get('text','defaut')
+#     print(djreturns)
+#     return HttpResponse("remove punc")
+#
+# def capfirst(request):
+#     return HttpResponse("capitalize first")
+#
+# def newlineremove(request):
+#     return HttpResponse("newline remove first")
+#
+#
+# def spaceremove(request):
+#     return HttpResponse("space remover back")
+#
+# def charcount(request):
+#     return HttpResponse("charcount ")
+#The above code is for video ten and eleven now its time to code for real video twelve
 def index(request):
     return render(request, 'index.html')
 
 def analyze(request):
-    djtext = request.GET.get('text', 'default')#get the text in text box
-    removepucc = request.GET.get('removepunc','off')#get the tick if ticked then on else off
-    if removepucc == 'on':#if it is on then we perform backend
+    djtext = request.POST.get('text','default')#Line to get text from the form
+    removepunc = request.POST.get('removepunc', 'off')
+    fullcaps = request.POST.get('fullcaps', 'off')
+    newlineremover = request.POST.get('newlineremover', 'off')
+    extraspaceremover = request.POST.get('extraspaceremover', 'off')
+    numberremover = request.POST.get('numberremover', 'off')
+
+    # Check which checkbox is on
+    if removepunc == "on":
         punctuations = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
         analyzed = ""
         for char in djtext:
             if char not in punctuations:
                 analyzed = analyzed + char
+
         params = {'purpose': 'Removed Punctuations', 'analyzed_text': analyzed}
-        return render(request, 'analyze.html', params)
-    else:
-        return HttpResponse("ERROR")
-def Calculator(request):
-    dj_number = request.GET.get('text','default')
-    addition = request.GET.get('addition','off')
-    if addition == 'on':
-        numbers=['0','1','2','3','4','5','6','7','8','9']
-        added = 0
+        djtext = analyzed
 
-        for num in dj_number:
-            if num in numbers:
-                added += int(num)
-        params = {'purpose': 'Addition of numbers', 'addition':added}
-        return render(request, 'Calculator.html',params)
-    else:
-        return HttpResponse("ERROR")
+    if (fullcaps == "on"):
+        analyzed = ""
+        for char in djtext:
+            analyzed = analyzed + char.upper()
 
+        params = {'purpose': 'Changed to Uppercase', 'analyzed_text': analyzed}
+        djtext = analyzed
+
+    if (extraspaceremover == "on"):
+        analyzed = ""
+        for index, char in enumerate(djtext):
+            # It is for if a extraspace is in the last of the string
+            if char == djtext[-1]:
+                if not (djtext[index] == " "):
+                    analyzed = analyzed + char
+
+            elif not (djtext[index] == " " and djtext[index + 1] == " "):
+                analyzed = analyzed + char
+
+        params = {'purpose': 'Removed NewLines', 'analyzed_text': analyzed}
+        djtext = analyzed
+
+    if (newlineremover == "on"):
+        analyzed = ""
+        for char in djtext:
+            if char != "\n" and char != "\r":
+                analyzed = analyzed + char
+
+        params = {'purpose': 'Removed NewLines', 'analyzed_text': analyzed}
+
+    if (numberremover == "on"):
+        analyzed = ""
+        numbers = '0123456789'
+
+        for char in djtext:
+            if char not in numbers:
+                analyzed = analyzed + char
+
+        params = {'purpose': 'Removed NewLines', 'analyzed_text': analyzed}
+        djtext = analyzed
+
+    if (
+            removepunc != "on" and newlineremover != "on" and extraspaceremover != "on" and fullcaps != "on" and numberremover != "on"):
+        return HttpResponse("please select any operation and try again")
+
+    return render(request, 'analyze.html', params)
+
+
+def about(request):
+    return render(request, 'about.html')
